@@ -15,18 +15,18 @@ const agents = [
   {"first_name":"Roger","last_name":"Babbel","email":"loons@rocket.elv","region":"north","rating":"60","fee":"5000"},
   {"first_name":"Zach","last_name":"Van Den Zilch","email":"zach@rocket.elv","region":"north","rating":"70","fee":"6000"},
   {"first_name":"Al","last_name":"Stein","email":"relative@rocket.elv","region":"south","rating":"54","fee":"4000"}
-];
+]
 
 const unitPrices = {
   standard: 8000,
   premium: 12000,
   excelium: 15000,
-};
+}
 
 const installPercentFees = {
   standard: 10,
   premium: 15,
   excelium: 20,
-};
+}
 
-module.exports = {agents,unitPrices,installPercentFees};
+module.exports = {agents,unitPrices,installPercentFees}
