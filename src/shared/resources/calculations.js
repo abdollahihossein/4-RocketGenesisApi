@@ -1,6 +1,6 @@
-const data = require('./data')
+const data = require('../../shared/resources/data')
 
-module.exports = function (numberOfApartments, numberOfFloors, tier, res) {
+function calcResidential(numberOfApartments, numberOfFloors, tier, res) {
     if (!(isNaN(numberOfApartments)) && !(isNaN(numberOfFloors))) {
         if ((Number.isInteger(Number(numberOfApartments))) && (Number.isInteger(Number(numberOfFloors)))) {
             if ((numberOfApartments > 0) && (numberOfFloors > 0)) {
@@ -35,3 +35,5 @@ module.exports = function (numberOfApartments, numberOfFloors, tier, res) {
     }
     else res.send('Number of apartments and number of floors must be number')
 }
+
+module.exports = {calcResidential}
