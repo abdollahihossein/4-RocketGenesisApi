@@ -19,14 +19,14 @@ const AgentsSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
-        default: 0,
+        default: 80,
         validate(value) {
             if (value < 0) throw new Error("Negative rating aren't real.")
         }
     },
     fee: {
         type: Number,
-        default: 0,
+        default: 6000,
         validate(value) {
             if (value < 0) throw new Error("Negative fee aren't real.")
         }

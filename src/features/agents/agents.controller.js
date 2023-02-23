@@ -1,7 +1,6 @@
 const data = require('../../shared/resources/data')
 const calcResidential = require('../../shared/resources/calculationResidential')
 const agentModel = require('../../shared/db/mongodb/schemas')
-const { count } = require('../../shared/db/mongodb/schemas')
 
 // email-list
 const email_list = async(req, res) => {
