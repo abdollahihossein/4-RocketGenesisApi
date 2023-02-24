@@ -40,6 +40,27 @@ const AgentsSchema = new mongoose.Schema({
     }
 })
 
-const Agents = mongoose.model('Agents', AgentsSchema)
+const RegionSchema = new mongoose.Schema({
+    region: {
+        type: String
+    },
+    address: {
+        type: String,
+        default: '4468 Wellington St Suite 204, Verdun, Quebec H4G 1W5'
+    },
+    total_sales: {
+        type: Number,
+        default: 0
+    },
+    manager: {
+        type: Object
+    },
+    top_agents: [
+        Object
+    ]
+})
 
-module.exports = Agents
+const Agents = mongoose.model('Agents', AgentsSchema)
+const Regions = mongoose.model('Regions', RegionSchema)
+
+module.exports = {Agents, Regions}

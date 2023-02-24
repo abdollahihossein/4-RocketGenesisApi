@@ -1,10 +1,9 @@
-const agentModel = require('../../shared/db/mongodb/schemas')
+const Model = require('../../shared/db/mongodb/schemas')
 
 // agent-create
 const agent_create = async(req, res) => {
-    const agent = new agentModel(req.body)
     try {
-        await agent.save()
+        await Model.Agents.create(req.body)
         res.send('An agent was created successfully!')
     } catch (error) {
         res.status(500).send(error)
@@ -14,7 +13,7 @@ const agent_create = async(req, res) => {
 // agents
 const agent = async(req, res) => {
     const sort1 = { last_name: 1 }
-    const agents = await agentModel.find({})
+    const agents = await Model.Agents.find({})
         .collation({locale: "en" })
         .sort(sort1)
     try {
@@ -28,7 +27,7 @@ const agent = async(req, res) => {
 const agents_by_region = async(req, res) => {
     let query1 = {"region": req.query.region}
     const sort2 = { rating: -1 }
-    const agentsByRegion = await agentModel.find(query1)
+    const agentsByRegion = await Model.Agents.find(query1)
         .collation({locale: "en" })
         .sort(sort2)
     try {
@@ -47,7 +46,7 @@ const agent_update_info = async(req, res) => {
         "region": req.body.region
     }
     try {
-        const updatedAgent = await agentModel.findByIdAndUpdate(req.params.id, allowedFields, {
+        const updatedAgent = await Model.Agents.findByIdAndUpdate(req.params.id, allowedFields, {
             new: true,
         })
         res.send(updatedAgent)
@@ -60,9 +59,9 @@ const agent_update_info = async(req, res) => {
 const agent_delete = async(req, res) => {
     let query2 = req.query
     try {
-        let count = await agentModel.countDocuments(query2)
+        let count = await Model.Agents.countDocuments(query2)
         if (count == 1) {
-            await agentModel.deleteOne(query2)
+            await Model.Agents.deleteOne(query2)
             res.send('item deleted!')
         }
         if (count > 1) {
