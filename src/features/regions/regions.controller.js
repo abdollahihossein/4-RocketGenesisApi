@@ -44,8 +44,14 @@ const region_create = async(req, res) => {
 const regions = async(req, res) => {
     let query = {"region": req.query.region}
     const region = await Model.Regions.find(query)
+    let count = await Model.Regions.countDocuments(query)
     try {
-        res.send(region[0])
+        if (count == 0) {
+            res.status(404).send('No item found in this region!')
+        }
+        else {
+            res.send(region[0])
+        }
     } catch (error) {
         res.status(500).send(error)
     }

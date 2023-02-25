@@ -6,18 +6,23 @@ const agent_create = async(req, res) => {
         await Model.Agents.create(req.body)
         res.send('An agent was created successfully!')
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send(error.message)
     }
 }
 
 // agents
 const agent = async(req, res) => {
-    const sort1 = { last_name: 1 }
     const agents = await Model.Agents.find({})
-        .collation({locale: "en" })
-        .sort(sort1)
+        .collation({locale: "en"})
+        .sort({last_name: 1})
+    let count = await Model.Agents.countDocuments({})
     try {
-        res.send(agents)
+        if (count == 0) {
+            res.status(404).send('No item found!')
+        }
+        else {
+            res.send(agents)
+        }
     } catch (error) {
         res.status(500).send(error)
     }
@@ -25,13 +30,18 @@ const agent = async(req, res) => {
 
 // agents-by-region
 const agents_by_region = async(req, res) => {
-    let query1 = {"region": req.query.region}
-    const sort2 = { rating: -1 }
-    const agentsByRegion = await Model.Agents.find(query1)
-        .collation({locale: "en" })
-        .sort(sort2)
+    let query = {"region": req.query.region}
+    const agentsByRegion = await Model.Agents.find(query)
+        .collation({locale: "en"})
+        .sort({rating: -1})
+    let count = await Model.Agents.countDocuments(query)
     try {
-        res.send(agentsByRegion)
+        if (count == 0) {
+            res.status(404).send('No item found!')
+        }
+        else {
+            res.send(agentsByRegion)
+        }
     } catch (error) {
         res.status(500).send(error)
     }
@@ -57,11 +67,11 @@ const agent_update_info = async(req, res) => {
 
 // agent-delete
 const agent_delete = async(req, res) => {
-    let query2 = req.query
+    let query = req.query
     try {
-        let count = await Model.Agents.countDocuments(query2)
+        let count = await Model.Agents.countDocuments(query)
         if (count == 1) {
-            await Model.Agents.deleteOne(query2)
+            await Model.Agents.deleteOne(query)
             res.send('item deleted!')
         }
         if (count > 1) {
