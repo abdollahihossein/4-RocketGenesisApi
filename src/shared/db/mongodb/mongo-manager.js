@@ -8,7 +8,7 @@ const openMongoConnection = () => {
   db.once('open', function callback () {
     console.log("connected to MongoDB")
   })
-  mongoose.connect('mongodb+srv://hosseinabdollahi:JYRoHRmQdArfgNjS@cluster0.6jaunsx.mongodb.net/Rocket-Genesis-Api?retryWrites=true&w=majority')
+  mongoose.connect(process.env.MONGO_URI)
 }
 
 mongoose.set('strictQuery', true) 
